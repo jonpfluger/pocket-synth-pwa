@@ -1,3 +1,4 @@
+import test from 'node:test'
 import '../css/pad.css'
 
 export class Pad {
@@ -9,7 +10,7 @@ export class Pad {
     this.pad = document.getElementById('pad')
     this.puck = document.getElementById('puck')
     this.setPuckStyle()
-    
+
     // attach listeners
     this.pad.addEventListener('mousemove', this.handleMouseMove)
     this.pad.addEventListener('mousedown', this.handleMouseDown)
@@ -18,19 +19,29 @@ export class Pad {
   }
 
   handleMouseMove(e) {
-    console.log(e)
+    if (e.buttons) {
+      this.updatePuckPosition(e)
+    }
   }
 
   handleMouseDown(e) {
-    console.log(e)
+    this.updatePuckPosition(e)
+    this.pressed = true
   }
 
   handleMouseUp(e) {
-    console.log(e)
+    this.updatePuckPosition(e)
+    this.pressed = false
   }
 
   handleMouseLeave(e) {
-    console.log(e)
+    this.pressed = false
+  }
+
+  updatePuckPosition(e) {
+    this.xPosition = this.clamp(e.offsetX / this.pad.offsetWidth)
+    this.yPosition = this.clamp(e.offsetY / this.pad.offsetHeight)
+    this.setPuckStyle()
   }
 
   clamp(val) {

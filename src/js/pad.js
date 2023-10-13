@@ -9,6 +9,28 @@ export class Pad {
     this.pad = document.getElementById('pad')
     this.puck = document.getElementById('puck')
     this.setPuckStyle()
+    
+    // attach listeners
+    this.pad.addEventListener('mousemove', this.handleMouseMove)
+    this.pad.addEventListener('mousedown', this.handleMouseDown)
+    this.pad.addEventListener('mouseup', this.handleMouseUp)
+    this.pad.addEventListener('mouseleave', this.handleMouseLeave)
+  }
+
+  handleMouseMove(e) {
+    console.log(e)
+  }
+
+  handleMouseDown(e) {
+    console.log(e)
+  }
+
+  handleMouseUp(e) {
+    console.log(e)
+  }
+
+  handleMouseLeave(e) {
+    console.log(e)
   }
 
   clamp(val) {

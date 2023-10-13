@@ -1,4 +1,3 @@
-import test from 'node:test'
 import '../css/pad.css'
 
 export class Pad {
@@ -6,16 +5,16 @@ export class Pad {
   yPosition = 0.5
   pressed = false
 
-  constructor() {
+  constructor(onPadEngageCb, onPadDisengageCb, onPuckMoveCb) {
     this.pad = document.getElementById('pad')
     this.puck = document.getElementById('puck')
     this.setPuckStyle()
 
     // attach listeners
-    this.pad.addEventListener('mousemove', this.handleMouseMove)
-    this.pad.addEventListener('mousedown', this.handleMouseDown)
-    this.pad.addEventListener('mouseup', this.handleMouseUp)
-    this.pad.addEventListener('mouseleave', this.handleMouseLeave)
+    this.pad.addEventListener('mousemove', this.handleMouseMove.bind(this))
+    this.pad.addEventListener('mousedown', this.handleMouseDown.bind(this))
+    this.pad.addEventListener('mouseup', this.handleMouseUp.bind(this))
+    this.pad.addEventListener('mouseleave', this.handleMouseLeave.bind(this))
   }
 
   handleMouseMove(e) {

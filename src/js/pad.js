@@ -26,21 +26,53 @@ export class Pad {
   handleMouseDown(e) {
     this.updatePuckPosition(e)
     this.pressed = true
+
+    if (this.onPadEngageCb) {
+      this.onPadEngageCb({
+        x: this.xPosition,
+        y: this.yPosition,
+        pressed: this.pressed,
+      })
+    }
   }
 
   handleMouseUp(e) {
     this.updatePuckPosition(e)
     this.pressed = false
+
+    if (this.onPadDisengageCb) {
+      this.onPadDisengageCb({
+        x: this.xPosition,
+        y: this.yPosition,
+        pressed: this.pressed,
+      })
+    }
   }
 
   handleMouseLeave(e) {
     this.pressed = false
+
+    if (this.onPadDisengageCb) {
+      this.onPadDisengageCb({
+        x: this.xPosition,
+        y: this.yPosition,
+        pressed: this.pressed,
+      })
+    }
   }
 
   updatePuckPosition(e) {
     this.xPosition = this.clamp(e.offsetX / this.pad.offsetWidth)
     this.yPosition = this.clamp(e.offsetY / this.pad.offsetHeight)
     this.setPuckStyle()
+
+    if (this.onPuckMoveCb) {
+      this.onPuckMoveCb({
+        x: this.xPosition,
+        y: this.yPosition,
+        pressed: this.pressed,
+      })
+    }
   }
 
   clamp(val) {
